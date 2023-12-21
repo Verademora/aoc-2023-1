@@ -10,12 +10,17 @@ fn main() -> Result<(), Box<dyn Error>> {
     
     let v: Vec<&str> = buffer.trim().split('\n').collect();
     
+    let mut result = 0;
+    
     for line in v {
         let i = line.find(|c: char| c.is_ascii_digit()).unwrap(); 
         let first: i32 = line.get(i..i+1).unwrap().parse().unwrap();
-        dbg!(first);
+        let i = line.rfind(|c: char| c.is_ascii_digit()).unwrap(); 
+        let last: i32 = line.get(i..i+1).unwrap().parse().unwrap();
+        result += first * 10 + last;
     }
-            
+    
+    println!("Final result: {:?}", result);
 
     Ok(())
 }
